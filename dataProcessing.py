@@ -7,8 +7,11 @@ def fourBytesToNum(dataType,this_message):
 
     if dataType == ord('B'):
         i = dataStartPo
-        data.this_bpm = int(chr(int(this_message[i]))) * 1000 + int(chr(int(this_message[i+1]))) * 100 + int(chr(int(this_message[i+2])))*10 + int(chr(int(this_message[i+3])))
+        this_bpm = int(chr(int(this_message[i]))) * 1000 + int(chr(int(this_message[i+1]))) * 100 + int(chr(int(this_message[i+2])))*10 + int(chr(int(this_message[i+3])))
+        data.this_bpm = this_bpm / 10
         print("This is a BPM message: ",data.this_bpm)
+        data.bpm.append(data.this_bpm)
+        # print("All BPM", data.bpm)
 
     
     if dataType == ord('W'):
@@ -22,6 +25,8 @@ def fourBytesToNum(dataType,this_message):
         # print(" ")
         data.this_pulse = pulse
         print(data.this_pulse)
+        data.pulse = data.pulse + pulse
+        # print("all puls:", data.pulse)
 
 ## calculate mean bpm by storing the new bpm in the bpmCnt position of the last_15_bpm array
 # return the next bpm position to write into the array

@@ -1,4 +1,5 @@
 import time
+import csv
 
 HIGH_BPM_DEFAULT = 90
 LOW_BPM_DEFAULT = 40
@@ -38,3 +39,14 @@ def print_message(this_message):
         print((int(this_message[i])),end=" ")
     print("\n")
 
+filename = 'messageExample1.csv'
+file = open(filename)
+csvreader = csv.reader(file)
+
+for row in csvreader:
+    data.raw.append(row)
+file.close()
+
+
+# Initialise the old sequence number as the first received sequcen number -1
+data.oldSeqNum = int(data.raw[0][1]) - 1

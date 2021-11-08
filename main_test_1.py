@@ -1,34 +1,45 @@
-import csv
+
 import time
 from classDefine import data
 from classDefine import alarm
-from classDefine import print_message
-from alarmFunction import commsAlarm
-from alarmFunction import bpmAlarm
+
 from dataProcessing import fourBytesToNum
 from dataProcessing import meanBpm
 
-filename = 'messageExample.csv'
+import PySimpleGUI as sg
+import guiFunctions as gui
+import alarmFunction as alrm
 
-file = open(filename)
-csvreader = csv.reader(file)
 
-for row in csvreader:
-    data.raw.append(row)
-file.close()
+#************************ Initialise GUI window ***************************#
 
-# initialise the old sequence number as the first received sequcen number -1
-data.oldSeqNum = int(data.raw[0][1]) - 1
-# this_message = data.raw[0]
-# print_message(this_message)
+# Draw GUI window
+window = gui.draw_GUI_window()
 
+# Initialise the GUI
+current = {}
+event, values = window.read(timeout=0.1)
+
+# Add figures to canvas
+ax1, fig1 = gui.addFigure(window["__CANVAS1__"])
+ax2, fig2 = gui.addFigure(window["__CANVAS2__"])
+
+#************************** DATA PROCESSING ***********************************
 bpmCnt = 0
-for loopNum in range(51):
+loopNum = 0
+
+startTime   = time.time()
+while loopNum < 120:
+ 
     timestamp = time.strftime("%a %b %d %H:%M:%S %Y", time.localtime())
+
+
     print("\nLoop Number: ",loopNum)
     this_message = data.raw[loopNum]
-    
-    if commsAlarm(this_message) == True:
+
+    if this_message == []:
+        print("No message received")
+    elif alrm.commsAlarm(this_message) == True:
         print(timestamp, ": ", alarm.alarm_string)
     else:
         print("input Message validation: Pass")
@@ -40,15 +51,38 @@ for loopNum in range(51):
         if dataType == ord('B'):
             # mark the bpm received time
             alarm.last_bpm_time = time.time()
+
             # print("bpm received time (in epoch): %.2f" %alarm.last_bpm_time)
             
             # mean bpm
             bpmCnt = meanBpm(bpmCnt)
-         
-             # bpm alarm
-            bpmAlarm(data.this_bpm)
-            if bpmAlarm(data.this_bpm) == True:
+        
+            # bpm alarm
+            alrm.bpmAlarm(data.this_bpm)
+            if alrm.bpmAlarm(data.this_bpm) == True:
                 print(timestamp, ": ", alarm.alarm_string)
+
+
+    # ---------------------Till now, the data is ready to be printed------------------------------------------
+
+    # Initialise data to draw
+    t_w_draw, pulse_draw, t_b_draw, bpm_draw = gui.get_data_to_draw()
+  
+    # Now do GUI actions
+    if gui.guiAction(window,t_w_draw,pulse_draw,t_b_draw,bpm_draw,ax1,ax2,fig1,fig2) == 'exit':
+        break
+
+    # wait for 1 second
+    while (time.time() < startTime + 0.5):
+        pass
+
+    startTime += 0.5
+    loopNum += 1
+
+
+
+
+
 
 
 

@@ -64,7 +64,7 @@ def commsAlarm(this_message):
         print(alarm.alarm_string)
         return True
     else:
-        # print("Comms validation: Pass")
+        print("Comms validation: Pass")
         return False
 
 
