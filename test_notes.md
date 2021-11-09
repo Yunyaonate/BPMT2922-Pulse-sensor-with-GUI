@@ -7,7 +7,10 @@ should be all good except for
 2. displaying alarms graphically
 
 3. clear all the data when reconnect, and click the clear button
+<<<<<<< HEAD
 4. Still haven't figured out the "No BPM issue": once they recognise as "No BPM", it'll always be "No BPM"
+=======
+>>>>>>> 3dbeff9e64881deb3d7dc544b8ed5d36fb5e5d5a
 
 __have tested with both csv and live data__
 
