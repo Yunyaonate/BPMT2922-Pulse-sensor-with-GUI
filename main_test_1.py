@@ -12,7 +12,6 @@ import alarmFunction as alrm
 
 
 #************************ Initialise GUI window ***************************#
-
 # Draw GUI window
 window = gui.draw_GUI_window()
 
@@ -29,7 +28,8 @@ bpmCnt = 0
 loopNum = 0
 
 startTime   = time.time()
-while loopNum < 120:
+#*************************** MAIN LOOP ************************************
+while loopNum < 60:
  
     timestamp = time.strftime("%a %b %d %H:%M:%S %Y", time.localtime())
 
@@ -40,6 +40,7 @@ while loopNum < 120:
     if this_message == []:
         print("No message received")
     elif alrm.commsAlarm(this_message) == True:
+        print("{} : {}".format(timestamp,alarm.alarm_string))
         print(timestamp, ": ", alarm.alarm_string)
     else:
         print("input Message validation: Pass")
@@ -56,12 +57,10 @@ while loopNum < 120:
             
             # mean bpm
             bpmCnt = meanBpm(bpmCnt)
-        
-            # bpm alarm
-            alrm.bpmAlarm(data.this_bpm)
-            if alrm.bpmAlarm(data.this_bpm) == True:
-                print(timestamp, ": ", alarm.alarm_string)
 
+            if alrm.bpmAlarm(data.this_bpm) == True:
+                print("{} : {}".format(timestamp,alarm.alarm_string))
+        
 
     # ---------------------Till now, the data is ready to be printed------------------------------------------
 
@@ -69,7 +68,7 @@ while loopNum < 120:
     t_w_draw, pulse_draw, t_b_draw, bpm_draw = gui.get_data_to_draw()
   
     # Now do GUI actions
-    if gui.guiAction(window,t_w_draw,pulse_draw,t_b_draw,bpm_draw,ax1,ax2,fig1,fig2) == 'exit':
+    if gui.guiAction(window,current,values,t_w_draw,pulse_draw,t_b_draw,bpm_draw,ax1,ax2,fig1,fig2) == 'exit':
         break
 
     # wait for 1 second

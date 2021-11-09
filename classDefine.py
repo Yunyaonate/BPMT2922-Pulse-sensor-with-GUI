@@ -11,7 +11,7 @@ class data:
     this_bpm = []
     this_pulse = []
     last_15_bpm = [0] * 15
-    mean_bpm = 0
+    mean_bpm = []
     pass
 
 class alarm:

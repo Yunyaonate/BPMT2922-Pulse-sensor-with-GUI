@@ -33,9 +33,10 @@ def fourBytesToNum(dataType,this_message):
 def meanBpm(bpmCnt):
     # mean bpm over last 15 sec
     data.last_15_bpm[bpmCnt] = data.this_bpm
-    data.mean_bpm = sum(data.last_15_bpm)/15
+    mean_bpm = sum(data.last_15_bpm)/15
+    data.mean_bpm.append(mean_bpm)
     print("Last 15 bpm: ", data.last_15_bpm)
-    print("Mean BPM over last 15 seconds: %.2f" %round(data.mean_bpm))
+    print("Mean BPM over last 15 seconds: %.2f" %round(mean_bpm))
     bpmCnt +=1
     if bpmCnt >= 15:
         bpmCnt = 0
