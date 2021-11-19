@@ -148,20 +148,21 @@ def bpmAlarm(this_bpm):
         alarm.alarm_string = 'Pulse Low'
         return True
     else:
-        alarm.alarm_string = 'System is Normal'
+        alarm.old_string = ''
+        alarm.alarm_string = ''
         return False
  
 def checkComms(lastMessage, serialPort, portName):
     """
     Check Comms alarm:
-    If it has been greater than 2s without a message input, close the port,
-    and attempt to reconnect. 
-
+    If it has been greater than 2s without a message input, close the port, and attempt to reconnect. 
+            
     Input: time last message was received. Serial port information.
     Output: None
-    
+            
     Author: Jacinta Cleary
     """
+
     if (time.time() - lastMessage) > 2.0:
         for i in range(2000):
             try:

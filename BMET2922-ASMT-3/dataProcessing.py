@@ -38,6 +38,7 @@ def fourBytesToNum(dataType,this_message):
         data.this_bpm = this_bpm / 10
         print("This is a BPM message: ",data.this_bpm)
         data.bpm.append(data.this_bpm)
+        # print("All BPM", data.bpm)
 
     if dataType == ord('W'):
         print("This is a Pulse Waveform message:")
@@ -46,9 +47,12 @@ def fourBytesToNum(dataType,this_message):
         for j in range(dataSize):             # position in the pulse array
             i = dataStartPo + j*4             # position in the raw message
             pulse[j] = int(chr(int(this_message[i]))) * 1000 + int(chr(int(this_message[i+1]))) * 100 + int(chr(int(this_message[i+2]))) * 10 + int(chr(int(this_message[i+3])))            
+        #     print(pulse[j],end=" ")
+        # print(" ")
         data.this_pulse = pulse
         print(data.this_pulse)
         data.pulse = data.pulse + pulse
+        # print("all puls:", data.pulse)
 
 
 def meanBpm(bpmCnt):
@@ -57,7 +61,7 @@ def meanBpm(bpmCnt):
     This function is to calculate the mean BPM over the last 15 seconds
 
     The bpmCnt count from 0 to 14, refers to the position we store a new BPM into the last_15_bpm array. 
-    
+
     It increment by 1 every time a BPM message is received. 
     When bpmCnt is going to be larger than 14, make it back to 0, we use the new received BPM to re-write the position
     So the last_15_bpm array is always with size of 15, and stores the newest 15 BPMs

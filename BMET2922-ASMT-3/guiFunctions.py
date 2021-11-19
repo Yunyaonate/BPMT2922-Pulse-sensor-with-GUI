@@ -172,7 +172,7 @@ def update_bpm_Info_window(canvasElement):
 def draw_GUI_window():
     """
     draw_GUI_window:
-    
+
     Create layout for the GUI window, and display the window
 
     There's a canvas with tab to display the Pulse data or BPM data, the data type to display can be chosen by the tabs

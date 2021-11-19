@@ -66,7 +66,8 @@ while loopNum < 60:
 
     # Initialise data to draw
     t_w_draw, pulse_draw, t_b_draw, bpm_draw = gui.get_data_to_draw()
-  
+
+
     # Now do GUI actions
     if gui.guiAction(window,current,values,t_w_draw,pulse_draw,t_b_draw,bpm_draw,ax1,ax2,fig1,fig2) == 'exit':
         break

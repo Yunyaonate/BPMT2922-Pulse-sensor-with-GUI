@@ -1,0 +1,21 @@
+Changes in this version:
+- test1_JC:
+    > Delete line 47-53 (initialise data class), because we have initialised it in the classDefine file
+
+
+
+- alarmFunction:
+    > Delete line 25 - 31 (Check flags), we didn't use it
+
+
+- classDefine:
+    > Delete the printmessage function
+
+
+Remember to add headers for your funcitons
+
+feel free to fix any English problems
+
+-----Delete above and keep the following words-----
+
+---
