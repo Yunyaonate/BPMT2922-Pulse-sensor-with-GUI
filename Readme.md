@@ -45,6 +45,6 @@ __To test the program with some manually generated error, please push the swiche
 - __Switch 1__: push to restart the uC
 - __Switch 2__: 
     - push for the 1st time, to suspend comms
-    - push for the 2nd time, to resume commes
+    - push for the 2nd time, to resume comms
     - push for the 3rd time, to cause a single sequence number error
     - push for the 4th time, to cause a single checksum error
